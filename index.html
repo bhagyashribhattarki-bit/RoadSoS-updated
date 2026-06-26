@@ -1,0 +1,318 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadSoS - Emergency Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+
+    <div class="logo">
+        🚑 RoadSoS
+    </div>
+
+    <div id="authButtons">
+
+        <button onclick="openSignup()">
+            Sign Up
+        </button>
+
+       <button onclick="openLogin()">
+    Login
+</button>
+
+    </div>
+
+    <div id="userSection" style="display:none;">
+
+        <span id="userEmail"></span>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+    
+
+<div class="container">
+    <div class="hero">
+    <h1>🚑 RoadSoS</h1>
+    <p>
+        AI-Powered Emergency Response & Roadside Assistance System
+    </p>
+</div>
+
+    <h1>🚑 RoadSoS</h1>
+    <p class="subtitle">
+        AI-Powered Emergency Response & Roadside Assistance System
+    </p>
+<!-- Authentication -->
+
+
+
+<!-- Emergency Contacts -->
+
+<div class="card">
+    <h2>👨‍👩‍👧 Emergency Contacts</h2>
+
+    <input
+        type="text"
+        id="contactName"
+        placeholder="Contact Name">
+
+    <input
+        type="email"
+        id="contactEmail"
+        placeholder="Emergency Contact Email">
+
+
+    <button onclick="saveContact()">
+        Save Contact
+    </button>
+
+    <div id="contactsList"></div>
+</div>
+    <div class="stats-container">
+
+        <div class="stat-card">
+            <h2>🚑</h2>
+            <h3>Hospitals</h3>
+            <p>15+</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>👮</h2>
+            <h3>Police</h3>
+            <p>8+</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>🚨</h2>
+            <h3>Emergency</h3>
+            <p>24x7</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>📍</h2>
+            <h3>Status</h3>
+            <p>Active</p>
+        </div>
+
+    </div>
+    <div class="card">
+    <h2>📄 Emergency Report</h2>
+
+    <p>
+        Download emergency information for sharing with responders.
+    </p>
+
+    <button onclick="window.print()">
+        📄 Download Emergency Report
+    </button>
+</div>
+<div class="card">
+    <h2>📍 Current Location</h2>
+    
+
+    <button onclick="getLocation()">
+        Get My Location
+    </button>
+
+    <p id="locationResult"></p>
+    </div>
+    <div class="card">
+    <h2>🏥 Nearby Hospitals</h2>
+
+    <button onclick="findHospitals()">
+        Find Nearby Hospitals
+    </button>
+
+    <div id="hospitalResults"></div>
+</div>
+<div class="card">
+    <h2>🚓 Nearby Police Stations</h2>
+
+    <button onclick="findPoliceStations()">
+        Find Nearby Police Stations
+    </button>
+
+    <div id="policeResults"></div>
+    </div>
+
+
+    
+<div class="card">
+    <h2>🚑 Quick Emergency Numbers</h2>
+
+    <div class="service-card">
+        Ambulance - 108
+    </div>
+
+    <div class="service-card">
+        Police - 100
+    </div>
+
+    <div class="service-card">
+        Fire Brigade - 101
+    </div>
+
+    <div class="service-card">
+        Emergency - 112
+    </div>
+</div>
+<div class="card">
+    
+    <h2>📞 One-Click Emergency Calling</h2>
+    <p style="margin-top:10px;color:#64748b;">
+📱 One-click calling works best on mobile devices.
+</p>
+
+    <a href="tel:108">
+        <button class="call-btn">
+            🚑 Call Ambulance (108)
+        </button>
+    </a>
+
+    <a href="tel:100">
+        <button class="call-btn">
+            👮 Call Police (100)
+        </button>
+    </a>
+
+    <a href="tel:101">
+        <button class="call-btn">
+            🔥 Call Fire Brigade (101)
+        </button>
+    </a>
+
+    <a href="tel:112">
+        <button class="call-btn">
+            🚨 Call Emergency (112)
+        </button>
+    </a>
+</div>
+
+    <div class="card">
+        <h2>🤖 AI Emergency Assistant</h2>
+
+        <input
+            type="text"
+            id="message"
+            placeholder="Describe your emergency">
+
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="startVoice()">🎤 Speak</button>
+
+        <p id="chatResponse"></p>
+    </div>
+
+    <div class="card">
+        <h2>📊 Accident Severity Predictor</h2>
+
+        <input
+            type="number"
+            id="speed"
+            placeholder="Vehicle Speed">
+
+        <button onclick="predictSeverity()">
+            Predict Risk
+        </button>
+
+        <p id="severityResult"></p>
+    </div>
+
+    <div class="card">
+        <h2>🚨 Emergency SOS</h2>
+
+        <button
+            class="sos-btn"
+            onclick="sendSOS()">
+            SOS
+        </button>
+
+        <p id="sosMessage"></p>
+    </div>
+    <div class="card">
+    <h2>🚨 SOS Alert History</h2>
+
+    <button onclick="loadSOSHistory()">
+        Refresh History
+    </button>
+
+    <button onclick="clearSOSHistory()">
+        🗑️ Clear History
+    </button>
+
+    <div id="historyList"></div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module" src="firebase-config.js"></script>
+<div id="loginModal" class="modal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+
+    <div class="modal-content">
+
+        <span class="close"
+            onclick="closeLogin()">
+            &times;
+        </span>
+
+        <h2>🔐 Login</h2>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter Email">
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter Password">
+
+        <button onclick="login()">
+            Login
+        </button>
+
+    </div>
+
+</div>
+<div id="signupModal" class="modal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+
+    <div class="modal-content">
+
+        <span class="close"
+            onclick="closeSignup()">
+            &times;
+        </span>
+
+        <h2>📝 Sign Up</h2>
+
+        <input
+            type="email"
+            id="signupEmail"
+            placeholder="Enter Email">
+
+        <input
+            type="password"
+            id="signupPassword"
+            placeholder="Enter Password">
+
+        <button onclick="signup()">
+            Create Account
+        </button>
+
+    </div>
+
+</div>
+<script src="script.js"></script>
+
+
+</body>
+</html>
